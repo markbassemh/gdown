@@ -112,14 +112,13 @@ def main():
     parser.add_argument(
         "--folder",
         action="store_true",
-        help="download entire folder instead of a single file "
-        "(max {max} files per folder)".format(max=MAX_NUMBER_FILES),
+        help="download entire folder instead of a single file ",
     )
     parser.add_argument(
         "--remaining-ok",
         action="store_true",
         help="(folder only) asserts that is ok to download max "
-        "{max} files per folder.".format(max=MAX_NUMBER_FILES),
+        "{max} files per folder.",
     )
     parser.add_argument(
         "--format",
