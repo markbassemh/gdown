@@ -13,10 +13,7 @@ import bs4
 
 from .download import _get_session
 from .download import download
-from .exceptions import FolderContentsMaximumLimitError
 from .parse_url import is_google_drive_url
-
-MAX_NUMBER_FILES = 50
 
 
 class _GoogleDriveFile(object):
@@ -94,11 +91,11 @@ def _parse_google_drive_file(url, content):
 
 
 def _download_and_parse_google_drive_link(
-    sess,
-    url,
-    quiet=False,
-    remaining_ok=False,
-    verify=True,
+        sess,
+        url,
+        quiet=False,
+        remaining_ok=False,
+        verify=True,
 ):
     """Get folder structure of Google Drive folder URL."""
 
@@ -164,16 +161,6 @@ def _download_and_parse_google_drive_link(
         if not return_code:
             return return_code, None
         gdrive_file.children.append(child)
-    has_at_least_max_files = len(gdrive_file.children) == MAX_NUMBER_FILES
-    if not remaining_ok and has_at_least_max_files:
-        message = " ".join(
-            [
-                "The gdrive folder with url: {url}".format(url=url),
-                "has more than {max} files,".format(max=MAX_NUMBER_FILES),
-                "gdrive can't download more than this limit.",
-            ]
-        )
-        raise FolderContentsMaximumLimitError(message)
     return return_code, gdrive_file
 
 
@@ -198,18 +185,18 @@ GoogleDriveFileToDownload = collections.namedtuple(
 
 
 def download_folder(
-    url=None,
-    id=None,
-    output=None,
-    quiet=False,
-    proxy=None,
-    speed=None,
-    use_cookies=True,
-    remaining_ok=False,
-    verify=True,
-    user_agent=None,
-    skip_download: bool = False,
-    resume=False,
+        url=None,
+        id=None,
+        output=None,
+        quiet=False,
+        proxy=None,
+        speed=None,
+        use_cookies=True,
+        remaining_ok=False,
+        verify=True,
+        user_agent=None,
+        skip_download: bool = False,
+        resume=False,
 ) -> Union[List[str], List[GoogleDriveFileToDownload], None]:
     """Downloads entire folder from URL.
 
